@@ -18,32 +18,31 @@
           <el-menu-item index="1">
             <nuxt-link to="/">首页</nuxt-link>
           </el-menu-item>
-          <!-- <el-submenu index="2">
+          <el-submenu index="2">
             <template slot="title">
-              <nuxt-link to="/hardware/jimo">我的工作台</nuxt-link>
+              <nuxt-link to="/">我的工作台</nuxt-link>
             </template>
             <el-menu-item index="2-1">
-              <nuxt-link to="/hardware/jimo">jimo 1</nuxt-link>
+              <nuxt-link to="/">page 1</nuxt-link>
             </el-menu-item>
             <el-menu-item index="2-2">
-              <nuxt-link to="/hardware/jimo">jimo 2</nuxt-link>
+              <nuxt-link to="/">page 2</nuxt-link>
             </el-menu-item>
             <el-menu-item index="2-3">
-              <nuxt-link to="/hardware/jimo">jimo 3</nuxt-link>
+              <nuxt-link to="/">page 3</nuxt-link>
             </el-menu-item>
           </el-submenu>
-          <el-menu-item index="3" disabled>消息中心</el-menu-item>-->
         </el-menu>
       </div>
 
-      <div class="right-menu-section fr">
+      <!--<div class="right-menu-section fr">
         <div class="right-menu-item">
           <svg-icon icon-class="user" class-name="icons" />
         </div>
         <div class="right-menu-item">
           <svg-icon icon-class="language" class-name="icons" />
         </div>
-      </div>
+      </div>-->
     </div>
   </div>
 </template>
@@ -80,9 +79,16 @@ export default {
 
 .logo-section {
   height: 100%;
-  padding-top: 20px;
+  padding-top: 10px;
   display: inline-block;
   width: 195px;
+  .logo-link {
+    img {
+      display: inline-block;
+      height: 30px;
+      width: auto;
+    }
+  }
 }
 .el-menu-demo{
   background-color: #000;
@@ -90,5 +96,6 @@ export default {
 .menu-section {
   width: calc(100% - 420px);
   display: inline-block;
+  color: #fff;
 }
 </style>

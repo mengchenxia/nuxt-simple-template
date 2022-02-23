@@ -14,7 +14,7 @@
 
 ```bash
 # 克隆项目
-git clone git@gitlab.tech.shadowcreator.com:vue.js/nuxt-simple-template.git
+git clone https://github.com/mvpyb/nuxt-simple-template.git
 
 # 进入项目目录
 cd nuxt-simple-template

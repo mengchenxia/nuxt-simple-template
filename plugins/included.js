@@ -11,7 +11,7 @@
 const spiderList = [
   // {
   //   id : 'sozz',
-  //   src : 'https://s.ssl.qhres2.com/ssl/ab77b6ea7f3fbf79.js',
+  //   src : 'https://test.js',
   //   des : '360',
   //   doc : 'http://zhanzhang.so.com/sitetool/auto_include'
   // },

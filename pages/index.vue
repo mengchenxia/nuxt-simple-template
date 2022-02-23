@@ -3,7 +3,7 @@
     <div class="main-body">
 
       <!--cute -slider-->
-      <!--<MagicSliderCute />-->
+      <MagicSliderCute />
 
       <!--masters -slider-->
       <!--<MagicSliderMasters>
@@ -13,16 +13,16 @@
       </MagicSliderMasters>-->
 
       <!--tween max -->
-      <!-- <div style="width: 60%;height: 50px;margin: 0 auto;  ">
+      <!--<div style="width: 60%;height: 50px;margin: 0 auto;  ">
         <el-slider v-model="currentSlider" @input="inputSlider" />
       </div>
       <el-button @click="play"> play </el-button>-->
 
       <!--测试鼠标跟随-->
-      <!-- <div v-if="showBall" ref="ball" class="ball" />
+      <div v-if="showBall" ref="ball" class="ball" />
       <div class="tween-max-section">
         <div ref="tween-max-item1" class="tween-max-item tween-max-item1" />
-      </div>-->
+      </div>
     </div>
   </div>
 
@@ -30,6 +30,7 @@
 
 <script>
 import env from '@/utils/env'
+import MagicSliderCute from '@/components/MagicSlider/cute'
 // import * as Cookie from '@/utils/cookie'
 // import LocalBridge from '@/utils/storages'
 // const storages = new LocalBridge( { prefix : 'hh_' } )
@@ -38,6 +39,7 @@ import env from '@/utils/env'
 export default {
   name : 'Index',
   layout : 'base',
+  components : { MagicSliderCute },
   // 异步数据用法
   async asyncData( context ) {},
   data() {
@@ -46,11 +48,11 @@ export default {
       loading : false,
       headTitle : '',
       headKeywords : '',
-      headDesc : ''
+      headDesc : '',
 
-      // tween : null, // 实例
-      // currentSlider : 0,
-      // showBall : false
+      tween : null, // 实例
+      currentSlider : 0,
+      showBall : false
     }
   },
   async mounted() {
@@ -59,8 +61,8 @@ export default {
     }
 
     // GSAP 动画测试组件 TODO
-    // this.animate1()
-    // this.initBall()
+    this.animate1()
+    this.initBall()
   },
   methods : {
     async getInfo() {

@@ -1,10 +1,11 @@
 
 import cheerio from 'cheerio'
 import config from './config.js'
-const path = require( 'path' )
 import zhLocale from './plugins/lang/zh.js'
 import enLocale from './plugins/lang/en.js'
 import fs from 'fs'
+
+const path = require( 'path' )
 
 function resolve( dir ) {
   return path.join( __dirname, dir )
@@ -39,13 +40,6 @@ export default {
     proxy : !isProduction
   },
 
-  // publicRuntimeConfig : {
-  //   axios : {
-  //     baseURL : 'http://webapi-fat.shadowcreator.com/100061'
-  //     // baseURL : 'https://api.nuxtjs.dev'
-  //   }
-  // },
-
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build : {
     analyze : false,
@@ -69,7 +63,7 @@ export default {
 
       // Run ESLint on save
       if ( isDev && isClient ) {
-        // config.devtool = 'eval-source-map'
+        config.devtool = 'eval-source-map'
         config.module.rules.push( {
           enforce : 'pre',
           test : /\.(js|vue)$/,
@@ -79,7 +73,7 @@ export default {
       }
 
       if ( isClient ) {
-        // config.devtool = '#source-map'
+        config.devtool = '#source-map'
       }
 
       // // 条件编译
@@ -98,15 +92,12 @@ export default {
       //   exclude : /(node_modules)/
       // } )
 
-      // 排除 nuxt 原配置的影响,Nuxt 默认有vue-loader,会处理svg,img等
-      // 找到匹配.svg的规则,然后将存放svg文件的目录排除
       const svgRule = config.module.rules.find( rule => rule.test.test( '.svg' ) )
       svgRule.exclude = [resolve( 'assets/icons/svg' )]
 
-      // 添加loader规则
       config.module.rules.push( {
         test : /\.svg$/,
-        include : [resolve( 'assets/icons/svg' )], // 将存放svg的目录加入到loader处理目录
+        include : [resolve( 'assets/icons/svg' )],
         use : [
           {
             loader : 'svg-sprite-loader',
@@ -117,14 +108,7 @@ export default {
         ]
       } )
     },
-
     ssr : true
-
-    // postcss : [
-    //   require( 'postcss-px2rem' )( {
-    //     remUnit : 100 //  代表 1rem = 14px
-    //   } )
-    // ]
   },
 
   cli : {
@@ -138,13 +122,10 @@ export default {
     '@/assets/styles/reset.scss',
     'video.js/dist/video-js.css'
   ],
-
-  // 自动导入组件: https://go.nuxtjs.dev/config-components
   components : true,
 
   dev : process.env.NODE_ENV !== 'production',
 
-  // 让你可以配置在客户端和服务端共享的环境变量。
   env : {
     domain : SSR_API_URL || DEV_API_URL,
     baseUrl : process.env.BASE_URL || '/',
@@ -164,12 +145,10 @@ export default {
       { 'http-equiv' : 'Cache-Control', content : 'no-cache, must-revalidate' },
       { 'http-equiv' : 'X-UA-Compatible', content : 'IE=edge,chrome=1' },
       { name : 'renderer', content : 'webkit|ie-comp|ie-stand' },
-      { name : '360-site-verification', content : '39985e543e6120906b9a3a9f81d88444' },
-      // { name : 'viewport', content : 'width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no' },
       { name : 'referrer', content : 'no-referrer' },
       { name : 'HandheldFriendly', content : 'true' },
-      { hid : 'keywords', name : '影创, 影创Air, 影创Halo, 影创Nano, AR, 智能眼镜, shadowcreator, actionone,halomini, 影创科技,VR,shadow vr,影创VR,jimo,影创jimo', content : '' },
-      { hid : 'description', name : '见，所未见，不同凡想，影创四大新品已经发布', content : '' }
+      { hid : 'keywords', name : 'nuxt nuxt-simple-template element mvpyb 灰是小灰灰的灰', content : '' },
+      { hid : 'description', name : '极简的 nuxt + element UI 的模板。它只包含了 Nuxt & Element & axios & iconfont & EsLint，这些搭建nuxt项目时必要的东西', content : '' }
     ],
     link : [
       { rel : 'icon', type : 'image/x-icon', href : '/favicon.ico' }
@@ -192,10 +171,6 @@ export default {
   // https://www.nuxtjs.cn/api/configuration-hooks
   hooks : {
     'render:route' : ( url, result ) => {
-      // this.$ = cheerio.load( result.html, { decodeEntities : false } )
-      // this.$( `meta` ).removeAttr( 'data-n-head' )
-      // result.html = this.$.html()
-
       const $ = cheerio.load( result.html, { decodeEntities : false } )
       $( `meta` ).removeAttr( 'data-n-head' )
       result.html = $.html()
@@ -218,25 +193,6 @@ export default {
       }
     }
   },
-
-  // generate : {
-  //   cache : {
-  //     ignore : [
-  //       '.nuxt', // buildDir
-  //       'static', // dir.static
-  //       'dist', // generate.dir
-  //       'node_modules',
-  //       '.**/*',
-  //       '.*',
-  //       'README.md'
-  //     ]
-  //   },
-  //   concurrency : 500,
-  //   crawler : true,
-  //   dir : 'dist', // 使用nuxt generate命令构建 Web 应用程序时创建的目录名称
-  //   fallback : '404.html'
-  // },
-
   general : {
     dir : 'dist',
     devtools : true,
@@ -258,15 +214,15 @@ export default {
     '@/plugins/svg-icon',
     '@/plugins/route',
     // 添加自动收录等埋点
-    '@/plugins/included.js', // TODO
+    '@/plugins/included.js',
     { src : '@/plugins/gsap', ssr : false },
     { src : '@/plugins/video-player.js', ssr : false },
     { src : '@/plugins/move.js', ssr : false },
     { src : '@/plugins/swiper.js', ssr : false },
     { src : '@/plugins/aos.js', ssr : false },
-    { src : '@/plugins/cropper', ssr : false } // false 只在客户端引入
+    { src : '@/plugins/cropper', ssr : false }
   ],
-  // 生产环境会一直运行
+
   proxy : isProduction ? {} : {
     '/v1' : {
       target : DEV_API_URL,
@@ -278,19 +234,18 @@ export default {
   },
 
   router : {
-    // 在每页渲染前运行 middleware/header.js 中间件的逻辑
     middleware : 'header'
   },
 
   server : {
-    port,
-    https : {
-      key : fs.readFileSync( resolve( 'cert.key' ) ),
-      cert : fs.readFileSync( resolve( 'cert.crt' ) )
-    }
+    port
+    // https : {
+    //   key : fs.readFileSync( resolve( 'cert.key' ) ),
+    //   cert : fs.readFileSync( resolve( 'cert.crt' ) )
+    // }
   },
 
-  target : 'server', // static 用于静态网站 npm run generate
+  target : 'server',
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules : []
